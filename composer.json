@@ -16,10 +16,10 @@
     "ext-simplexml": "*",
     "ext-pgsql": "*",
     "ext-curl": "*",
-    "garavelphp/commands": "^1.0.1",
-    "garavelphp/filesystem": "^1.0.1",
-    "garavelphp/request": "^1.0.1",
-    "garavelphp/response": "^1.0.1",
-    "garavelphp/router": "^1.0.1"
+    "garavelphp/commands": "^1.0.2",
+    "garavelphp/filesystem": "^1.0.2",
+    "garavelphp/request": "^1.0.2",
+    "garavelphp/response": "^1.0.2",
+    "garavelphp/router": "^1.0.2"
   }
 }
