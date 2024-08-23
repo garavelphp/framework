@@ -24,3 +24,10 @@ composer.lock
 /docker/mongo_data
 /docker/data
 /docker/minio
+Storage/Logs/*
+Storage/Cache/*
+Storage/Session/*
+vendor/*
+.idea/*
+Logs/*
+Cache/*

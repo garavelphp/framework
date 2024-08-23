@@ -22,11 +22,12 @@ function request($key = null, $method = 'get')
 /**
  * @throws Exception
  */
-function view($path, $data)
+function view($path, $data = [])
 {
     $path = Paths::getViewPath() . $path;
     $path = string2path($path);
-    return (new View)->make($path . '.php', $data)->render();
+    $content = (new View)->make($path . '.php', $data)->render();
+    return \response()->html($content);
 
 }
 

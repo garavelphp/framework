@@ -1,0 +1,28 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # MultiViews özelliğini kapatma (isteğe bağlı)
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    # Var olan dosya veya dizin değilse, tüm istekleri index.php'ye yönlendirme
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    # Apache mod_rewrite yüklenmemişse hata mesajı göster
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    ErrorDocument 404 /index.php
+</IfModule>
+
+# Gzip sıkıştırma etkinleştirme
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

@@ -11,7 +11,7 @@ class View
     /**
      * @throws \Exception
      */
-    public function make($path, $data)
+    public function make($path, $data): static
     {
         $viewFile = files()->open($path);
         $this->view = $viewFile;
@@ -19,7 +19,7 @@ class View
         return $this;
     }
 
-    public function makeFromString($string,$data)
+    public function makeFromString($string,$data): static
     {
         $this->view = $string;
         $this->data = $data;
@@ -27,7 +27,7 @@ class View
     }
 
 
-    public function render()
+    public function render(): bool|string
     {
         $data = $this->data;
         $view = $this->view;
