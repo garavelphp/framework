@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use Core\Commands\Base\BaseCommand;
+use GaravelPHP\Commands\Base\BaseCommand;
 
 class PingCommand extends BaseCommand
 {

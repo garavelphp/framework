@@ -1,11 +1,13 @@
 #!/usr/bin/env php
 <?php
 
+use GaravelPHP\Commands\Runner;
+
 define('GARAVEL_START', microtime(true));
 if ($argc < 2) {
     echo "Usage: php garavel <command> [options]\n";
     exit(1);
 }
 require __DIR__.'/vendor/autoload.php';
-new \Core\Commands\Runner($argv[1], array_slice($argv, 2));
+new Runner($argv[1], array_slice($argv, 2));
 exit(0);

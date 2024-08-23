@@ -3,7 +3,7 @@
 namespace App\Commands;
 
 use App\Models\UserModel;
-use Core\Commands\Base\BaseCommand;
+use GaravelPHP\Commands\Base\BaseCommand;
 
 class TestCodeCommandCommand extends BaseCommand
 {
