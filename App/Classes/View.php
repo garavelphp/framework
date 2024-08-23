@@ -2,7 +2,6 @@
 
 namespace App\Classes;
 
-use Core\Filesystem\File;
 
 class View
 {

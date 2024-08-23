@@ -3,7 +3,6 @@ require 'vendor/autoload.php';
 require 'Core/core.php';
 
 use App\Classes\Handler;
-use App\Classes\Request;
 use Core\Cache\Base\Cache;
 use Core\Router\Router;
 

@@ -15,6 +15,7 @@ Yapmayı planladıklarım :
 - Cache maker
 - MongoDB connector
 - mysql connector
+- Validator
 
 
 ## Bilgisayarınızda Çalıştırın

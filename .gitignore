@@ -5,7 +5,6 @@
 /public/*.test
 /storage/*.key
 /vendor
-/vendor/*/*/*.md
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

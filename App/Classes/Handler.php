@@ -4,6 +4,7 @@ namespace App\Classes;
 
 
 use Core\Database\Drivers\Base\BaseDatabase;
+use GaravelPHP\Response\Response;
 
 class Handler
 {

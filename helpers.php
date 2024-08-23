@@ -2,12 +2,15 @@
 
 
 use App\Classes\View;
-use Core\Filesystem\Paths;
+use GaravelPHP\Filesystem\File;
+use GaravelPHP\Filesystem\Paths;
+use GaravelPHP\Request\Request;
+use GaravelPHP\Response\Response;
 
 function request($key = null, $method = 'get')
 {
     if (!isset($GLOBALS['request'])) {
-        $GLOBALS['request'] = new \App\Classes\Request();
+        $GLOBALS['request'] = new Request();
     }
     $request = $GLOBALS['request'];
     if ($key == null) {
@@ -95,11 +98,10 @@ function view_path($path = null)
 
 /**
  * @param $path
- * @return \Core\Filesystem\File
  */
-function files($path = null): \Core\Filesystem\File
+function files($path = null)
 {
-    return (new \Core\Filesystem\File($path));
+    return (new File($path));
 }
 
 
@@ -125,5 +127,5 @@ function config($path, $default = null)
 
 function response()
 {
-    return new \App\Classes\Response();
+    return new Response();
 }

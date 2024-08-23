@@ -15,6 +15,11 @@
     "ext-dom": "*",
     "ext-simplexml": "*",
     "ext-pgsql": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "garavelphp/commands": "^1.0",
+    "garavelphp/filesystem": "^1.0",
+    "garavelphp/request": "^1.0",
+    "garavelphp/response": "^1.0",
+    "garavelphp/router": "^1.0"
   }
 }
