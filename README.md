@@ -1,56 +1,36 @@
 
 # Garavel
 
-Bu proje habi amaçlı geliştirilmeye başlanmıştır. Yıllardır yazılan laravel projelerinden esinlenilmiş ve çok daha hafif , çalışması için en az config gereksinimi duyan bir yapı oluşturmayı hedefliyorum.
-
-Yapmayı planladıklarım :
-
-- Basit/hafif router yapısı OK
-- Basit/hafif command yapısı OK
-- Basit/hafif query builder yapısı OK
-- Basit/hafif model ve controller yapısı OK
-- Basit/hafif provider yapısı
-- Basit/hafif middleware yapısı
-- Fileuploader
-- Cache maker
-- MongoDB connector
-- mysql connector
-- Validator
+Please follow the [Trello](https://trello.com/b/Q6IYeCTl/garavel)
 
 
-## Bilgisayarınızda Çalıştırın
+## Run the computer
 
-Projeyi klonlayın
+Clone the project
 
 ```bash
   git clone https://github.com/garavelphp/freamwork.git
 ```
 
-Proje dizinine gidin
+Go to the project directory
 
 ```bash
   cd freamwork
 ```
 
-Docker ile çalıştırın
+Run with docker
 
 ```bash
   docker compose up -d --build
+  docker exec -it garavelphp-web-1 bash
 ```
 
-Apache/Nginx ile çalıştırın
+Load the dependencies
 
 ```bash
-  compose install
+  composer install
 ```
 
+## Feedbacks
 
-
-## Geri Bildirim
-
-Herhangi bir geri bildiriminiz varsa, lütfen ben4hmetcelik@gmail.com adresinden bana ulaşın.
-
-
-## Demo
-
-Demo görselleri ve ilgili bağlantılar daha sonra eklenecek
+If you have any feedback, please reach out to us at [email](mailto:ben4hmetcelik@gmail.com)
