@@ -29,20 +29,25 @@ class TestCodeCommandCommand extends BaseCommand
     {
 
 
-
         /**
          * @var UserModel $user
          */
-        $user = $this->find(13);
-        $identify = $user->getIdentify();
-        var_dump($identify);
+        $user = (new UserModel())->find(13);
+        /**
+         * @var UserIdentifyModel $identifyOne
+         */
+        $identifyOne = $user->getIdentifyOne();
+        /**
+         * @var UserIdentifyModel $identifyMany
+         */
+        $identifyMany = $user->getIdentifyMany();
 
     }
 
     public function query()
     {
         $model = new UserModel();
-        $model = $model->where('id', '<',13);
+        $model = $model->where('id', '<', 13);
         return $model->first();
 
     }

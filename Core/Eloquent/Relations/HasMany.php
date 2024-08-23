@@ -19,7 +19,7 @@ class HasMany
         $this->local_column = $local_column;
     }
 
-    public function first(): BaseModel|array|null
+    public function get(): BaseModel|array|null
     {
         return $this->modelTarget->select()->where($this->target_column,'=', $this->model->{$this->local_column})->get();
     }
