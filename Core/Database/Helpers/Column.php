@@ -4,41 +4,41 @@ namespace Core\Database\Helpers;
 
 class Column
 {
-    public $name;
-    public $type;
+    public string $name;
+    public string $type;
 
-    public static function name($name)
+    public static function name($name): static
     {
         $static = new static();
         $static->name = $name;
         return $static;
 
     }
-    public function autoIncrement()
+    public function autoIncrement(): static
     {
         $this->type = 'SERIAL';
         return $this;
     }
 
-    public function primary()
+    public function primary(): static
     {
         $this->type .= ' PRIMARY KEY';
         return $this;
     }
 
-    public function string($length = 255)
+    public function string($length = 255): static
     {
         $this->type = "VARCHAR($length)";
         return $this;
     }
 
-    public function integer()
+    public function integer(): static
     {
         $this->type = "INTEGER";
         return $this;
     }
 
-    public function timestamp()
+    public function timestamp(): static
     {
         $this->type = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
         return $this;

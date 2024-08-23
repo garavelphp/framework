@@ -5,30 +5,30 @@ namespace Core\Database\Helpers;
 class Table
 {
 
-    public $name;
-    public $columns = [];
-    public $shouldDrop = false;
+    public string $name;
+    public array $columns = [];
+    public bool $shouldDrop = false;
 
-    public static function name($name)
+    public static function name(string $name): static
     {
         $static = new static();
         $static->name = $name;
         return $static;
     }
 
-    public function column(Column $column)
+    public function column(Column $column): static
     {
         $this->columns[] = $column;
         return $this;
     }
 
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): static
     {
         $this->columns[] = $column;
         return $this;
     }
 
-    public function removeColumn(Column $column)
+    public function removeColumn(Column $column): static
     {
 
         foreach ($this->columns as $key => $col) {
@@ -40,7 +40,7 @@ class Table
 
     }
 
-    public function dropTable()
+    public function dropTable(): static
     {
         $this->shouldDrop = true;
         return $this;

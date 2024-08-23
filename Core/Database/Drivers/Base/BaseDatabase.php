@@ -2,6 +2,21 @@
 
 namespace Core\Database\Drivers\Base;
 
+/**
+ * Class BaseDatabase
+ * @package Core\Database\Drivers\Base
+ * @throws \Exception
+ * @return BaseDatabase|callable
+ * @throws \ReflectionException
+ * @method static connect()
+ * @method static disconnect()
+ * @method static query($sql)
+ * @method static findDatabaseClass()
+ * @method static dbConnected()
+ * @method static dbDisconnected()
+ * @method static getConnectionConfigs()
+ * @method static select(string $full_query_or_columns = '*', string|null $table = null)
+ */
 class BaseDatabase implements IDatabaseInterface
 {
 
@@ -39,8 +54,9 @@ class BaseDatabase implements IDatabaseInterface
 
     /**
      * @throws \Exception
+     * @return BaseDatabase|callable
      */
-    public function findDatabaseClass()
+    public function findDatabaseClass(): BaseDatabase|callable
     {
         try {
             $driver = $this->getConnectionConfigs()['driver'];

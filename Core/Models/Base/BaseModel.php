@@ -9,9 +9,10 @@ class BaseModel extends QueryBuilder
 
     public $exist = false;
 
-    public $shouldFill = [];
+    public array $shouldFill = [];
 
-    public $attributes = [];
+    public array $attributes = [];
+
 
     public function __construct()
     {
@@ -19,7 +20,7 @@ class BaseModel extends QueryBuilder
         $this->table = $this->table ?? $this->getTableName();
     }
 
-    public function getTableName()
+    public function getTableName(): string
     {
         //get user model class name
         $getClassName = get_class($this);
@@ -27,7 +28,7 @@ class BaseModel extends QueryBuilder
         return strtolower($getClassName) . 's';
     }
 
-    public static function find($id)
+    public static function find($id): bool
     {
         $static = new static;
         $queryResult = $static->select()->where('id', '=', $id)->first();
@@ -42,12 +43,12 @@ class BaseModel extends QueryBuilder
         return false;
     }
 
-    public function setAttribute($key, $value)
+    public function setAttribute($key, $value): void
     {
         $this->attributes[$key] = $value;
     }
 
-    public function save()
+    public function save(): self
     {
         if ($this->exist) {
             $this->where('id', $this->id)->update($this->getAttributes());
@@ -75,7 +76,7 @@ class BaseModel extends QueryBuilder
 
     }
 
-    public function shouldBeRemoveObjects()
+    public function shouldBeRemoveObjects(): array
     {
         return ['database', 'table', 'query_string', 'exist', 'shouldFill'];
     }

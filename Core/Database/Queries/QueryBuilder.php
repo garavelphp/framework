@@ -4,6 +4,7 @@ namespace Core\Database\Queries;
 
 use Core\Database\Drivers\Base\BaseDatabase;
 
+
 class QueryBuilder extends BaseDatabase
 {
 
@@ -34,7 +35,7 @@ class QueryBuilder extends BaseDatabase
         return $result;
     }
 
-    public static function select($full_query_or_columns = '*', $table = null)
+    public static function select(string $full_query_or_columns = '*', string|null $table = null): static
     {
         $query = new static;
 
@@ -63,16 +64,15 @@ class QueryBuilder extends BaseDatabase
         return $query;
     }
 
-    public static function table($table_name)
+    public static function table($table_name): QueryBuilder
     {
         $query = new QueryBuilder();
         $query->table = $table_name;
         return $query;
     }
 
-    public function where($column, $operator, $value = null)
+    public function where($column, $operator, $value = null): static
     {
-
         if (is_null($value)) {
             $value = $operator;
             $operator = '=';
@@ -81,7 +81,7 @@ class QueryBuilder extends BaseDatabase
         return $this;
     }
 
-    public function andWhere($column, $operator, $value = null)
+    public function andWhere($column, $operator, $value = null): static
     {
         if (is_null($value)) {
             $value = $operator;
@@ -91,7 +91,7 @@ class QueryBuilder extends BaseDatabase
         return $this;
     }
 
-    public function orWhere($column, $operator, $value = null)
+    public function orWhere($column, $operator, $value = null): static
     {
         if (is_null($value)) {
             $value = $operator;
@@ -101,21 +101,21 @@ class QueryBuilder extends BaseDatabase
         return $this;
     }
 
-    public function first()
+    public function first(): mixed
     {
         return $this->result(
             $this->database->select($this->query_string)->fetch()
         );
     }
 
-    public function get()
+    public function get(): mixed
     {
         return $this->result(
-            $this->database->select($this->query_string)->fetch()
+            $this->database->select($this->query_string)->fetchAll()
         );
     }
 
-    public static function find($id)
+    public static function find($id): mixed
     {
         $static = new static();
         return $static->result(
@@ -123,13 +123,13 @@ class QueryBuilder extends BaseDatabase
         );
     }
 
-    public function onlyThisColumns($columns = [])
+    public function onlyThisColumns($columns = []): self
     {
         $this->query_string = str_replace('*', implode(',', $columns), $this->query_string);
         return $this;
     }
 
-    public function insert($data)
+    public function insert($data): mixed
     {
         $data = array_map(function ($value) {
             return "'" . $value . "'";
@@ -143,7 +143,7 @@ class QueryBuilder extends BaseDatabase
         );
     }
 
-    public function update($data)
+    public function update($data): mixed
     {
         $sql = 'UPDATE ' . $this->table . ' SET ';
         $sql .= implode(',', array_map(function ($key, $value) {
@@ -156,7 +156,7 @@ class QueryBuilder extends BaseDatabase
         );
     }
 
-    public function delete()
+    public function delete(): mixed
     {
         $sql = 'DELETE FROM ' . $this->table . $this->query_string;
 
@@ -166,13 +166,13 @@ class QueryBuilder extends BaseDatabase
 
     }
 
-    public function getSql()
+    public function getSql(): string
     {
         return $this->query_string;
     }
 
 
-    public function run($query)
+    public function run($query): mixed
     {
         return $this->result(
             $this->database->select($query)

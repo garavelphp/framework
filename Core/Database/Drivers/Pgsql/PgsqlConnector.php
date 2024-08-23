@@ -2,7 +2,9 @@
 
 namespace Core\Database\Drivers\Pgsql;
 
-class PgsqlConnector
+use Core\Database\Drivers\Base\IDatabaseInterface;
+
+class PgsqlConnector implements IDatabaseInterface
 {
 
     public $connection;
@@ -46,7 +48,7 @@ class PgsqlConnector
     /**
      * @throws \Exception
      */
-    public function select($sql)
+    public function select($sql): static|\Exception
     {
         try {
             $this->query = pg_query($this->connection, $sql);
@@ -59,7 +61,10 @@ class PgsqlConnector
         }
     }
 
-    public function fetch($query = null): bool|array
+    /**
+     * @throws \Exception
+     */
+    public function fetch($query = null): bool|array|\Exception
     {
         if (is_null($query)) {
             $query = $this->query;
@@ -71,6 +76,7 @@ class PgsqlConnector
             throw new \Exception('Could not fetch Pgsql');
         }
     }
+
 
 
 }
