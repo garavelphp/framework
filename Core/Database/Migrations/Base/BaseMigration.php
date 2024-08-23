@@ -18,12 +18,16 @@ class BaseMigration
     }
 
 
+    /**
+     * @throws \Exception
+     */
     public function run($type='up')
     {
 
         $table = $this->$type();
 
         $query = $this->$type();
+
         if ($query && $type == 'up') {
             $query = 'CREATE TABLE ' . $table->name . ' (';
             foreach ($table->columns as $column) {
@@ -31,21 +35,23 @@ class BaseMigration
             }
             $query = rtrim($query, ',');
             $query .= ')';
-            $this->runToDatabase($query);
+            $this->runToDatabase($query,$table->name);
         }elseif ($query && $type == 'down'){
-            $query = $query->name;
-            $query = 'DROP TABLE ' . $query;
-            echo $query;
+            $table = $query->name;
+            $query = 'DROP TABLE ' . $table;
+            $this->runToDatabase($query,$table->name);
         }else{
             echo 'No query to run';
         }
     }
 
-    public function runToDatabase($query): void
+    /**
+     * @throws \Exception
+     */
+    public function runToDatabase($query,$table): void
     {
         try {
-            $queryBuilder = new QueryBuilder();
-            $queryBuilder->run($query);
+            QueryBuilder::table($table)->run($query);
         }catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

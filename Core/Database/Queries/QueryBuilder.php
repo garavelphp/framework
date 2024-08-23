@@ -9,6 +9,7 @@ class QueryBuilder extends BaseDatabase
 {
 
     public $table;
+
     public $query_string = '';
 
     public $database;
@@ -31,20 +32,15 @@ class QueryBuilder extends BaseDatabase
 
     public function result($result)
     {
-        $this->time = microtime(true) - $this->timerStart;
+        $this->timerEnd = microtime(true) - $this->timerStart;
         return $result;
     }
 
-    public static function select(string $full_query_or_columns = '*', string|null $table = null): static
+    public function select(string $full_query_or_columns = '*', string|null $table = null): static
     {
-        $query = new static;
-
         if (is_null($table)) {
-            $table = $query->table;
-        } else {
-            $query->table = $table;
+            $table = $this->table;
         }
-
         if (is_array($full_query_or_columns)) {
             $full_query_or_columns = array_map(function ($column) {
                 return '"' . $column . '"';
@@ -57,19 +53,13 @@ class QueryBuilder extends BaseDatabase
         }
 
         if (is_null($table)) {
-            $query->query_string = 'SELECT ' . $full_query_or_columns;
+            $this->query_string = 'SELECT ' . $full_query_or_columns;
         } else {
-            $query->query_string = 'SELECT ' . $full_query_or_columns . ' FROM ' . $table;
+            $this->query_string = 'SELECT ' . $full_query_or_columns . ' FROM ' . $table;
         }
-        return $query;
+        return $this;
     }
 
-    public static function table($table_name): QueryBuilder
-    {
-        $query = new QueryBuilder();
-        $query->table = $table_name;
-        return $query;
-    }
 
     public function where($column, $operator, $value = null): static
     {
@@ -103,23 +93,24 @@ class QueryBuilder extends BaseDatabase
 
     public function first(): mixed
     {
+
         return $this->result(
-            $this->database->select($this->query_string)->fetch()
+            $this->database->select($this,$this->query_string)->fetch()
         );
     }
 
     public function get(): mixed
     {
         return $this->result(
-            $this->database->select($this->query_string)->fetchAll()
+            $this->database->select($this,$this->query_string)->fetchAll()
         );
     }
 
-    public static function find($id): mixed
+    public function find($id): mixed
     {
-        $static = new static();
-        return $static->result(
-            $static->database->select($static->query_string . ' WHERE id = ' . $id)->fetch()
+
+        return $this->result(
+            $this->database->select($this->query_string . ' WHERE id = ' . $id)->fetch()
         );
     }
 
@@ -139,7 +130,7 @@ class QueryBuilder extends BaseDatabase
         $sql .= implode(',', array_values($data)) . ')
         RETURNING id';
         return $this->result(
-            $this->database->select($sql)->fetch()
+            $this->database->select($this,$sql)->fetch()
         );
     }
 
@@ -147,21 +138,26 @@ class QueryBuilder extends BaseDatabase
     {
         $sql = 'UPDATE ' . $this->table . ' SET ';
         $sql .= implode(',', array_map(function ($key, $value) {
-            return $key . ' = ' . $value;
+            if (is_numeric($value)) {
+                return $key . ' = ' . $value;
+            }
+            return $key . ' = \'' . $value.'\'';
         }, array_keys($data), array_values($data)));
         $sql .= $this->query_string;
 
         return $this->result(
-            $this->database->query($sql)
+            $this->database->select($this,$sql)->fetch()
         );
     }
 
     public function delete(): mixed
     {
         $sql = 'DELETE FROM ' . $this->table . $this->query_string;
-
+        if (strlen($this->query_string) == 0) {
+            return false;
+        }
         return $this->result(
-            $this->database->query($sql)
+            $this->database->select($this,$sql)->fetch()
         );
 
     }
@@ -175,9 +171,12 @@ class QueryBuilder extends BaseDatabase
     public function run($query): mixed
     {
         return $this->result(
-            $this->database->select($query)
+            $this->database->select($this,$query)
         );
     }
+
+
+
 
 
 }

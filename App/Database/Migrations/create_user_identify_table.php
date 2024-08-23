@@ -7,17 +7,16 @@ use Core\Database\Helpers\Column;
 use Core\Database\Helpers\Table;
 use Core\Database\Migrations\Base\BaseMigration;
 
-class [MigrationName] extends BaseMigration
+class create_user_identify_table extends BaseMigration
 {
 
 
     public function up()
     {
-        return Table::name('users')
+        return Table::name('user_identifies')
             ->addColumn(Column::name('id')->integer()->primary()->autoIncrement())
-            ->addColumn(Column::name('name')->string())
-            ->addColumn(Column::name('email')->string())
-            ->addColumn(Column::name('password')->string())
+            ->addColumn(Column::name('user_id')->integer())
+            ->addColumn(Column::name('passport_number')->string())
             ->addColumn(Column::name('created_at')->timestamp())
             ->addColumn(Column::name('updated_at')->timestamp());
 
@@ -26,11 +25,10 @@ class [MigrationName] extends BaseMigration
     public function down()
     {
 
-        return Table::name('users')
+        return Table::name('user_identifies')
             ->removeColumn(Column::name('id')->integer()->primary()->autoIncrement())
-            ->removeColumn(Column::name('name')->string())
-            ->removeColumn(Column::name('email')->string())
-            ->removeColumn(Column::name('password')->string())
+            ->removeColumn(Column::name('user_id')->integer())
+            ->removeColumn(Column::name('passport_number')->string())
             ->removeColumn(Column::name('created_at')->timestamp())
             ->removeColumn(Column::name('updated_at')->timestamp())
             ->dropTable();

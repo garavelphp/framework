@@ -32,5 +32,9 @@ WORKDIR /var/www/html
 # Gerekli dosya izinlerini ayarlıyoruz
 RUN chown -R www-data:www-data /var/www/html
 
+
+#Set user to www
+USER www-data
+
 # Apache'yi çalıştırıyoruz
 CMD ["apache2-foreground"]

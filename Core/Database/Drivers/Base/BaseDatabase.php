@@ -20,6 +20,8 @@ namespace Core\Database\Drivers\Base;
 class BaseDatabase implements IDatabaseInterface
 {
 
+
+
     public function getConnectionConfigs()
     {
         return config('database');
@@ -54,9 +56,9 @@ class BaseDatabase implements IDatabaseInterface
 
     /**
      * @throws \Exception
-     * @return BaseDatabase|callable
+     * @return IDatabaseInterface|callable
      */
-    public function findDatabaseClass(): BaseDatabase|callable
+    public function findDatabaseClass(): IDatabaseInterface|callable
     {
         try {
             $driver = $this->getConnectionConfigs()['driver'];

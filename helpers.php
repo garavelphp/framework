@@ -130,3 +130,9 @@ function response()
 {
     return new Response();
 }
+
+
+function convert2snakeCase($word)
+{
+    return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $word));
+}

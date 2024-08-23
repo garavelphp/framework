@@ -3,9 +3,12 @@
 namespace Core\Models\Base;
 
 use Core\Database\Queries\QueryBuilder;
+use Core\Models\Traits\RelationsTrait;
 
 class BaseModel extends QueryBuilder
 {
+
+    use RelationsTrait;
 
     public $exist = false;
 
@@ -14,10 +17,13 @@ class BaseModel extends QueryBuilder
     public array $attributes = [];
 
 
+
+
     public function __construct()
     {
         parent::__construct();
         $this->table = $this->table ?? $this->getTableName();
+        $this->select();
     }
 
     public function getTableName(): string
@@ -28,20 +34,20 @@ class BaseModel extends QueryBuilder
         return strtolower($getClassName) . 's';
     }
 
-    public static function find($id): bool
+    public function find($id): bool|array|null|BaseModel
     {
-        $static = new static;
-        $queryResult = $static->select()->where('id', '=', $id)->first();
 
+        $queryResult = $this->select()->where('id', '=', $id)->first();
         if ($queryResult){
-            $static->exist = true;
+            $this->exist = true;
             foreach ($queryResult as $key => $value) {
-                $static->setAttribute($key,$value);
+                $this->setAttribute($key,$value);
             }
-            return $static->result($queryResult);
+            return $this;
         }
         return false;
     }
+
 
     public function setAttribute($key, $value): void
     {
@@ -62,15 +68,16 @@ class BaseModel extends QueryBuilder
         return $this;
     }
 
+
     public function getAttributes(): array
     {
-        $allObjects = get_object_vars($this);
+
         if (empty($this->shouldFill)) {
-            return array_filter($allObjects, function ($key) {
+            return array_filter($this->attributes, function ($key) {
                 return !in_array($key, $this->shouldBeRemoveObjects());
             }, ARRAY_FILTER_USE_KEY);
         }
-        return array_filter($allObjects, function ($key) {
+        return array_filter($this->attributes, function ($key) {
             return in_array($key, $this->fillable);
         }, ARRAY_FILTER_USE_KEY);
 
@@ -78,17 +85,17 @@ class BaseModel extends QueryBuilder
 
     public function shouldBeRemoveObjects(): array
     {
-        return ['database', 'table', 'query_string', 'exist', 'shouldFill'];
+        return ['database', 'table', 'query_string', 'exist', 'shouldFill','timerStart','timerEnd','attributes'];
     }
 
     public function __get($name)
     {
-        return $this->$name;
+        return $this->attributes[$name] ?? null;
     }
 
     public function __set($name, $value)
     {
-        $this->$name = $value;
+        $this->attributes[$name] = $value;
     }
 
 
