@@ -1,6 +1,8 @@
 <?php
 
-$router = new \Core\Router\Router();
+use Core\Router\Router;
+
+$router = new Router();
 
 
 $router->get('/', [\App\Controllers\HomeController::class, 'getHello'])

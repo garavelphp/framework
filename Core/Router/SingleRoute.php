@@ -5,16 +5,16 @@ namespace Core\Router;
 class SingleRoute
 {
 
-    public $method;
-    public $url;
+    public string $method;
+    public string $url;
     public $callback;
-    public $name;
-    public $middlewares;
+    public string $name;
+    public array $middlewares;
 
-    public $controller;
+    public string $controller;
 
     public $function;
-    public $router;
+    public Router $router;
 
     public function __construct(Router $router, $method, $url, $callback)
     {
@@ -34,7 +34,7 @@ class SingleRoute
         return $this->method;
     }
 
-    public function getUrl()
+    public function getUrl():string
     {
         return $this->url;
     }
@@ -44,57 +44,60 @@ class SingleRoute
         return $this->callback;
     }
 
-    public function getName()
+    public function getName():string
     {
         return $this->name;
     }
 
-    public function getMiddlewares()
+    public function getMiddlewares():array
     {
         return $this->middlewares;
 
     }
 
-    public function setMethod($method)
+    public function setMethod($method): SingleRoute
     {
         $this->method = $method;
         return $this;
 
     }
 
-    public function setUrl($url)
+    public function setUrl(string $url): SingleRoute
     {
         $this->url = $url;
         return $this;
 
     }
 
-    public function setCallback($callback)
+    public function setCallback($callback): SingleRoute
     {
         $this->callback = $callback;
         return $this;
 
     }
 
-    public function setName($name)
+    public function setName(string $name): SingleRoute
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setMiddlewares($middlewares)
+    public function setMiddlewares($middlewares): SingleRoute
     {
+        if (!is_array($middlewares)) {
+            $middlewares = [$middlewares];
+        }
         $this->middlewares = $middlewares;
         return $this;
 
     }
 
-    public function save()
+    public function save() : void
     {
         $this->router->setRoute($this);
     }
 
-    public function toArray()
+    public function toArray():array
     {
         return [
             'method' => $this->method,
