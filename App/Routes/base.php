@@ -1,6 +1,7 @@
 <?php
 
-use Core\Router\Router;
+
+use GaravelPHP\Router\Router;
 
 $router = new Router();
 

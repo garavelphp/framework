@@ -4,11 +4,11 @@ require 'Core/core.php';
 
 use App\Classes\Handler;
 use Core\Cache\Base\Cache;
-use Core\Router\Router;
+use GaravelPHP\Router\Router;
 
 
 define('PROCESS_START', microtime(true));
-ini_set('display_errors', false);
+ini_set('display_errors', true);
 
 $cache = new Cache();
 $router = new Router();
