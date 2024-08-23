@@ -2,7 +2,7 @@
 
 [Namespace]
 
-use Core\Controllers\BaseController;
+use GaravelPHP\Controllers\BaseController;
 
 class [ControllerName] extends BaseController
 {
