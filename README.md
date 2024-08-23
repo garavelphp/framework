@@ -22,13 +22,13 @@ Yapmayı planladıklarım :
 Projeyi klonlayın
 
 ```bash
-  git clone https://github.com/benahmetcelik/garavel.git
+  git clone https://github.com/garavelphp/freamwork.git
 ```
 
 Proje dizinine gidin
 
 ```bash
-  cd garavel
+  cd freamwork
 ```
 
 Docker ile çalıştırın
