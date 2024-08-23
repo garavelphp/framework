@@ -1,0 +1,18 @@
+<?php
+
+[Namespace]
+
+use Core\Controllers\BaseController;
+
+class [ControllerName] extends BaseController
+{
+
+    protected $prefix = '/[prefix]';
+
+
+    public function getHello($params=[])
+    {
+        return 'hello world';
+    }
+
+}

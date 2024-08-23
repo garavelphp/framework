@@ -1,0 +1,20 @@
+{
+
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+        "Core\\": "Core/"
+    },
+    "files": [
+      "helpers.php"
+    ]
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^7.9",
+    "ext-json": "*",
+    "ext-dom": "*",
+    "ext-simplexml": "*",
+    "ext-pgsql": "*",
+    "ext-curl": "*"
+  }
+}

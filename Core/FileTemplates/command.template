@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Commands;
+
+use Core\Commands\Base\BaseCommand;
+
+class [CommandName] extends BaseCommand
+{
+
+    /**
+     * Your command signature
+     * @var string Command signature
+     */
+    public $signature = 'example-signature';
+
+    /**
+     * Your command description
+     * @var string Command description
+     */
+    public $description = 'Your command description';
+
+    /**
+     * Your command handler
+     * @return void
+     */
+    public function run()
+    {
+        echo 'Hello';
+    }
+
+}
+
